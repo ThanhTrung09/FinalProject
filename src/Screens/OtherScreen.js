@@ -1,13 +1,15 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Octicons from 'react-native-vector-icons/Octicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 
 export default function OtherScreen() {
   return (
-    <View syle={styles.container}>
+    <ScrollView syle={styles.container}>
       <View style={{ margin: 15 }}>
         <View>
           <Text style={styles.textTitle}>Tiện ích</Text>
@@ -40,21 +42,56 @@ export default function OtherScreen() {
               <View style={styles.mainTitle}>
                 <Text style={styles.mainText}>Đánh giá đơn hàng</Text>
               </View>
-              <View><FontAwesome name="angle-right" size={25} /></View>
+              <View style={styles.otherIcon}><FontAwesome name="angle-right" size={25} /></View>
             </View>
-
+            <View style={{ borderBottomWidth: 1, marginLeft: 20, borderBottomColor: '#e0e0e0' }}></View>
             <View style={styles.boxInfo4}>
               <View style={styles.otherIcon}><Octicons name="comment" size={20} /></View>
               <View style={styles.mainTitle}>
                 <Text style={styles.mainText}>Liên hệ và góp ý</Text>
               </View>
-              <View><FontAwesome name="angle-right" size={25} /></View>
+              <View style={styles.otherIcon}><FontAwesome name="angle-right" size={25} /></View>
             </View>
           </View>
         </View>
-
+        <View>
+          <Text style={styles.textTitle2}>Tài Khoản</Text>
+          <View style={styles.box4}>
+            <View style={styles.boxInfo4}>
+              <View style={styles.otherIcon}><MaterialCommunityIcons name="account-outline" size={20} /></View>
+              <View style={styles.mainTitle}>
+                <Text style={styles.mainText}>Thông tin cá nhân</Text>
+              </View>
+              <View style={styles.otherIcon}><FontAwesome name="angle-right" size={25} /></View>
+            </View>
+            <View style={{ borderBottomWidth: 1, marginLeft: 20, borderBottomColor: '#e0e0e0' }}></View>
+            <View style={styles.boxInfo4}>
+              <View style={styles.otherIcon}><Feather name="bookmark" size={20} /></View>
+              <View style={styles.mainTitle}>
+                <Text style={styles.mainText}>Địa chỉ đã lưu</Text>
+              </View>
+              <View style={styles.otherIcon}><FontAwesome name="angle-right" size={25} /></View>
+            </View>
+            <View style={{ borderBottomWidth: 1, marginLeft: 20, borderBottomColor: '#e0e0e0' }}></View>
+            <View style={styles.boxInfo4}>
+              <View style={styles.otherIcon}><Ionicons name="settings-outline" size={20} /></View>
+              <View style={styles.mainTitle}>
+                <Text style={styles.mainText}>Cài đặt</Text>
+              </View>
+              <View style={styles.otherIcon}><FontAwesome name="angle-right" size={25} /></View>
+            </View>
+            <View style={{ borderBottomWidth: 1, marginLeft: 20, borderBottomColor: '#e0e0e0' }}></View>
+            <View style={styles.boxInfo4}>
+              <View style={styles.otherIcon}><MaterialCommunityIcons name="login-variant" size={20} /></View>
+              <View style={styles.mainTitle}>
+                <Text style={styles.mainText}>Đăng nhập</Text>
+              </View>
+              <View style={styles.otherIcon}><FontAwesome name="angle-right" size={25} /></View>
+            </View>
+          </View>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -106,11 +143,11 @@ const styles = StyleSheet.create({
   box4: {
     backgroundColor: "#ffff",
     borderRadius: 10,
-    marginTop: 15
+    marginTop: 15,
   },
   boxInfo4: {
     flexDirection: 'row',
-    height: 30,
+    height: 40,
     margin: 10,
   },
   otherIcon: {
