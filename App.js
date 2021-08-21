@@ -20,7 +20,8 @@ export default function App() {
         screenOptions={{
           tabBarActiveTintColor: 'orange',
           tabBarInactiveTintColor: 'grey',
-          tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold', padding: 2 },
+          tabBarLabelStyle: { fontSize: 13, fontWeight: 'bold' },
+          tabBarStyle: { height: 45 },
         }}>
         <Tab.Screen
           name="Trang chủ"
