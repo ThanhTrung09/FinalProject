@@ -204,12 +204,11 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   hideBox1: {
-    flexDirection: 'column',
-    alignItems: 'center',
+    flex: 1,
+    alignItems: 'flex-end',
     justifyContent: 'center',
     height: 150,
-    width: 100,
-    left: 220,
+    // left: 260,
   },
   hideBox2: {
     backgroundColor: '#f9a825',
