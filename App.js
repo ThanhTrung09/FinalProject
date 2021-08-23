@@ -22,6 +22,7 @@ export default function App() {
           tabBarInactiveTintColor: 'grey',
           tabBarLabelStyle: { fontSize: 13, fontWeight: 'bold' },
           tabBarStyle: { height: 45 },
+          headerShown: false,
         }}>
         <Tab.Screen
           name="Trang chủ"
@@ -57,7 +58,7 @@ export default function App() {
           name="Tích điểm"
           component={TicketScreen}
           options={{
-            tabBarLabel: 'Cửa hàng',
+            tabBarLabel: 'Tích điểm',
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="ticket-confirmation-outline"
