@@ -1,12 +1,14 @@
 import React from 'react'
-import { View, Text, ScrollView, Image, StyleSheet, SafeAreaView, TextInput } from 'react-native'
+import { View, Text, ScrollView, Image, StyleSheet, SafeAreaView, TextInput, Dimensions } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 export default function ShopScreen() {
+  const windowHeight = Dimensions.get('window').height;
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ height: windowHeight - 45 }}>
       <View style={styles.header}>
         <View style={styles.topHeader}>
           <Text style={styles.topHeaderText}>Cửa hàng</Text>
@@ -204,7 +206,6 @@ export default function ShopScreen() {
                 </View>
               </View>
             </View>
-
           </View>
         </View>
       </ScrollView>
@@ -301,7 +302,7 @@ const styles = StyleSheet.create({
   bottomHeaderSearch: {
     flexDirection: 'row',
     backgroundColor: '#e0e0e0',
-    height: 35,
+    height: 50,
     width: 250,
     borderRadius: 10,
   },
@@ -323,7 +324,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    height: 140,
+    height: 145,
     borderBottomColor: '#e0e0e0',
   },
   bottomHeaderMap: {

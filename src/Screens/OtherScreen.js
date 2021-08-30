@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -9,8 +9,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
 export default function OtherScreen() {
+  const windowHeight = Dimensions.get('window').height;
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ height: windowHeight - 45 }}>
       <View style={styles.header}>
         <View style={styles.headerTitle}>
           <Text style={styles.headerText}>Khác</Text>
