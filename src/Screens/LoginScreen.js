@@ -1,8 +1,51 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Modal from "react-native-modal";
+import { Login } from '../services/Api';
+
+
+const { height, width } = Dimensions.get('window')
+
 
 export default function LoginScreen() {
+  const [isVisible, setisVisible] = useState(false);
+  const [phone, setPhone] = useState()
+  const [code, setCode] = useState()
+
+  const onChangePhone = (val) => setPhone(val)
+  const onChangeCode = (val) => setCode(val)
+
+  const onVerifyPhone = async () => {
+    try {
+      const response = await Login({ phone: phone });
+      console.log('rs', response.data.data); // data tu api tra ve
+      setisVisible(true)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const onVerifyCode = async () => {
+    try {
+      const response = await Login({ phone: phone, otp: code });
+      console.log('rs', response.data.data); // data tu api tra ve
+      setisVisible(false)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   return (
     <View style={styles.container}>
       <View style={styles.loginImage}>
@@ -24,11 +67,11 @@ export default function LoginScreen() {
                 <Text style={{ marginLeft: 5 }}>+84</Text>
               </View>
             </View>
-            <TextInput style={styles.numberInput} keyboardType="numeric" placeholder="Nhập số điện thoại" />
+            <TextInput onChangeText={onChangePhone} value={phone} style={styles.numberInput} keyboardType="numeric" placeholder="Nhập số điện thoại" />
           </View>
 
           <TouchableOpacity style={styles.btnLogin}>
-            <Text style={styles.btnLoginText}>Đăng nhập</Text>
+            <Text onPress={onVerifyPhone} style={styles.btnLoginText}>Đăng nhập</Text>
           </TouchableOpacity>
           <View style={styles.text}>
             <View style={{ borderTopWidth: 1, width: 140, borderTopColor: '#e0e0e0' }}><Text></Text></View>
@@ -45,7 +88,47 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+      <Modal
+        testID={'modal'}
+        isVisible={isVisible}
+        onSwipeComplete={() => setisVisible(false)}
+        swipeDirection={['up', 'left', 'right', 'down']}
+        style={{ justifyContent: 'flex-end', margin: 0 }}>
+        <View style={styles.content}>
+          <TouchableOpacity style={styles.closeBtn} onPress={() => setisVisible(false)} >
+            <Ionicons name="close" size={30} color="black" />
+          </TouchableOpacity>
+          <View style={styles.contentTitle}>
+            <Text style={{ fontSize: 25, fontWeight: 'bold', marginBottom: 15 }}>Xác nhận Mã OTP</Text>
+            <Text style={{ fontSize: 18 }}>Một mã xác nhận gồm 6 chữ số</Text>
+            <Text style={{ fontSize: 18, marginBottom: 50 }}>đã được gửi đến số điện thoại {phone}</Text>
+            <Text style={{ fontSize: 18 }}>Nhập mã để tiếp tục</Text>
+            <View style={styles.Code}>
+              <TextInput style={styles.inputCode} keyboardType="numeric" onChangeText={onChangeCode} value={code} />
+            </View>
+            <TouchableOpacity
+              onPress={onVerifyCode}
+              style={{
+                backgroundColor: '#bdbdbd',
+                width: 300,
+                height: 50,
+                borderRadius: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{ fontSize: 18, color: 'white' }}>Send Code</Text>
+            </TouchableOpacity>
+            <View style={{ flexDirection: 'row', marginTop: 20 }}>
+              <Text style={{ fontSize: 18 }}>Không nhận được mã</Text>
+              <TouchableOpacity>
+                <Text style={{ fontSize: 18, marginLeft: 5, color: 'blue', textDecorationLine: 'underline' }}>Gửi lại</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        {/* <DefaultModalContent onPress={this.close} /> */}
+      </Modal>
+    </View >
   );
 }
 
@@ -139,5 +222,38 @@ const styles = StyleSheet.create({
   iconGg: {
     height: 15,
     width: 15,
+  },
+  content: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    height: height - 30,
+  },
+  closeBtn: {
+    position: 'absolute',
+    right: 20,
+    top: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  contentTitle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Code: {
+    width: 300,
+    borderWidth: 1,
+    borderColor: '#909090',
+    marginVertical: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputCode: {
+    fontSize: 20,
+    padding: 10,
+    fontWeight: 'bold',
   },
 });

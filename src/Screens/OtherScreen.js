@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -7,9 +7,14 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import Modal from "react-native-modal";
+import LoginScreen from './LoginScreen';
 
 export default function OtherScreen() {
   const windowHeight = Dimensions.get('window').height;
+  const [isVisible, setisVisible] = useState(false);
+  const onLogin = () => { setisVisible(true) };
+
 
   return (
     <SafeAreaView style={{ height: windowHeight - 45 }}>
@@ -95,7 +100,7 @@ export default function OtherScreen() {
               <View style={styles.boxInfo4}>
                 <View style={styles.otherIcon}><MaterialCommunityIcons name="login-variant" size={20} /></View>
                 <View style={styles.mainTitle}>
-                  <Text style={styles.mainText}>Đăng nhập</Text>
+                  <Text onPress={onLogin} style={styles.mainText}>Đăng nhập</Text>
                 </View>
                 <View style={styles.otherIcon}><FontAwesome name="angle-right" size={25} /></View>
               </View>
@@ -103,14 +108,25 @@ export default function OtherScreen() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+      <Modal
+        testID={'modal'}
+        isVisible={isVisible}
+        onSwipeComplete={() => setisVisible(false)}
+        swipeDirection={['up', 'left', 'right', 'down']}
+        style={{ justifyContent: 'flex-end', margin: 0 }}>
+        <View style={styles.content}>
+          <LoginScreen />
+          <TouchableOpacity style={styles.closeBtn} onPress={() => setisVisible(false)} >
+            <Ionicons name="close" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
+        {/* <DefaultModalContent onPress={this.close} /> */}
+      </Modal>
+    </SafeAreaView >
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-
-  },
   textTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -221,5 +237,19 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#ffff',
     height: 75,
+  },
+  content: {
+    height: '100%',
+  },
+  closeBtn: {
+    position: 'absolute',
+    right: 20,
+    top: 20,
+    height: 40,
+    width: 40,
+    backgroundColor: '#9e9e9e',
+    borderRadius: 40 / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })
