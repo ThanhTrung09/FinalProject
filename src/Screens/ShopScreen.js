@@ -8,7 +8,7 @@ export default function ShopScreen() {
   const windowHeight = Dimensions.get('window').height;
 
   return (
-    <SafeAreaView style={{ height: windowHeight - 45 }}>
+    <SafeAreaView style={{ height: windowHeight - 50 }}>
       <View style={styles.header}>
         <View style={styles.topHeader}>
           <Text style={styles.topHeaderText}>Cửa hàng</Text>
@@ -32,7 +32,7 @@ export default function ShopScreen() {
           </View>
         </View>
       </View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ margin: 20 }}>
           <Text style={{ fontSize: 22, fontWeight: 'bold', marginVertical: 15 }}>Các cửa hàng khác</Text>
           <View style={styles.allBox}>

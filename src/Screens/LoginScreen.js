@@ -28,17 +28,29 @@ export default function LoginScreen() {
   const onVerifyPhone = async () => {
     try {
       const response = await Login({ phone: phone });
-      console.log('rs', response.data.data); // data tu api tra ve
+      console.log('rs', response.data); // data tu api tra ve
       setisVisible(true)
     } catch (error) {
       console.error(error);
     }
   }
 
+  const onVerifyCodeAgain = async () => {
+    try {
+      const response = await Login({ phone: phone });
+      console.log('rs', response.data); // data tu api tra ve
+      setisVisible(true)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+
   const onVerifyCode = async () => {
     try {
       const response = await Login({ phone: phone, otp: code });
-      console.log('rs', response.data.data); // data tu api tra ve
+      console.log('rs', response.data); // data tu api tra ve
       setisVisible(false)
     } catch (error) {
       console.error(error);
@@ -121,7 +133,7 @@ export default function LoginScreen() {
             <View style={{ flexDirection: 'row', marginTop: 20 }}>
               <Text style={{ fontSize: 18 }}>Không nhận được mã</Text>
               <TouchableOpacity>
-                <Text style={{ fontSize: 18, marginLeft: 5, color: 'blue', textDecorationLine: 'underline' }}>Gửi lại</Text>
+                <Text onPress={onVerifyCodeAgain} style={{ fontSize: 18, marginLeft: 5, color: 'blue', textDecorationLine: 'underline' }}>Gửi lại</Text>
               </TouchableOpacity>
             </View>
           </View>

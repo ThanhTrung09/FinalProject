@@ -17,7 +17,7 @@ export default function OtherScreen() {
 
 
   return (
-    <SafeAreaView style={{ height: windowHeight - 45 }}>
+    <SafeAreaView style={{ height: windowHeight - 50 }}>
       <View style={styles.header}>
         <View style={styles.headerTitle}>
           <Text style={styles.headerText}>Khác</Text>
@@ -25,7 +25,7 @@ export default function OtherScreen() {
           <View style={styles.headerIcon2}><Fontisto name="bell" size={15} /></View>
         </View>
       </View>
-      <ScrollView syle={styles.container}>
+      <ScrollView syle={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ margin: 15 }}>
           <View>
             <Text style={styles.textTitle}>Tiện ích</Text>
