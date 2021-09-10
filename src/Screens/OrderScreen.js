@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, Dimensions, TouchableOpacity } from 'react-native'
 import { getMenu } from '../services/Api'
+import { useSelector, useDispatch } from "react-redux";
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { SwipeRow } from 'react-native-swipe-list-view';
 
 export default function OrderScreen() {
+  const dispatch = useDispatch()
   const [product, setProduct] = useState([])
   const windowHeight = Dimensions.get('window').height;
+
+  const onAddToCart = (item) => () => {
+    dispatch({ type: 'ADD_CART', data: { ...item, quantity: 1 } })
+  }
 
   useEffect(() => {
     const callGetMenu = async () => {
@@ -28,7 +34,7 @@ export default function OrderScreen() {
     <View>
       <SwipeRow rightOpenValue={-100}>
         <View style={styles.hideBox1}>
-          <TouchableOpacity style={styles.hideBox2}>
+          <TouchableOpacity style={styles.hideBox2} onPress={onAddToCart(item)}>
             <EvilIcons name="heart" size={25} color="#ffff" />
             <Text style={{ fontSize: 12, color: '#fff', marginTop: 10 }}>Yêu Thích</Text>
           </TouchableOpacity>
@@ -36,7 +42,7 @@ export default function OrderScreen() {
         <View style={styles.item}>
           <View style={styles.boxContent}>
             <View style={styles.boxText}>
-              <Text style={styles.boxText1}>{item.product_name}</Text>
+              <Text style={styles.boxText1} onPress={onAddToCart}>{item.product_name}</Text>
               <Text ellipsizeMode='tail' numberOfLines={2} style={styles.boxText2}>{item.description}</Text>
               <Text style={styles.boxText3}>{item.price}đ</Text>
             </View>
