@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, SafeAreaView, FlatList, StyleSheet, Image, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, FlatList, StyleSheet, Image, Dimensions } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Swiper from 'react-native-swiper'
@@ -200,6 +200,7 @@ const DATA3 = [
 
 export default function HomeScreen() {
   const [dataList, setdataList] = useState(DATA1);
+  const windowHeight = Dimensions.get('window').height;
 
   const Header = () => {
     return (
@@ -237,16 +238,16 @@ export default function HomeScreen() {
           <View style={{ width: '100%', height: 200 }}>
             <Swiper style={styles.wrapper} autoplay={true} autoplayTimeout={3}>
               <View style={styles.slide}>
-                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/hinode_-_img_9322_e733cde7255641d0be8a31afc879b379_1024x1024.jpg" }} />
+                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/225547912_3043429712597701_1363688999489744489_n_ecf71de9ac524b29a1596646dc4aaf82_grande.jpeg" }} />
               </View>
               <View style={styles.slide}>
-                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/tch-hai_ba_trung_398a9c92be4a4c46885d0a7bc2a9c456_1024x1024.jpg" }} />
+                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/236903713_3043429512597721_3240934949613314118_n_34e21bb2e40242eb877c5f10aa66bd2c_grande.jpeg" }} />
               </View>
               <View style={styles.slide}>
-                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/1212-tch-p4_04feaa750de14848b25e19fea8d46135_1024x1024.jpg" }} />
+                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/article/blog_079b84707b0e4e4fa291d617d4184546_master.jpg" }} />
               </View>
               <View style={styles.slide}>
-                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/3e0a8783_master.jpg" }} />
+                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/notif-giahan-goiwfh_14855ba08c8b42c9bdb0c80432734dbc_grande.jpg" }} />
               </View>
               <View style={styles.slide}>
                 <Image style={styles.slideImage} source={{ uri: "https://image.bnews.vn/MediaUpload/Org/2021/01/23/the-coffee-house2.jpg" }} />
@@ -291,23 +292,25 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header />
-        <Body />
-        <View style={{ marginTop: 15, marginHorizontal: 5 }}>
-          <FlatList
-            data={dataList}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            numColumns={2}
-          />
-        </View>
-      </ScrollView>
+      <Header />
+      <View style={{ marginTop: 15, height: windowHeight - 145 }}>
+        <FlatList
+          data={dataList}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={2}
+          ListHeaderComponent={Body}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+  },
   headerTitle: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -425,8 +428,8 @@ const styles = StyleSheet.create({
   },
   listItem: {
     width: "46%",
-    marginHorizontal: 5,
-    marginTop: 10,
+    marginLeft: 10,
+    marginTop: 15,
   },
   MainContent: {
     fontSize: 20,
