@@ -1,50 +1,71 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList, Dimensions, TouchableOpacity } from 'react-native'
-import { getMenu } from '../services/Api'
-import { useSelector, useDispatch } from "react-redux";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  FlatList,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import { getMenu } from '../services/Api';
+import { useSelector, useDispatch } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { SwipeRow } from 'react-native-swipe-list-view';
 
 export default function OrderScreen() {
-  const dispatch = useDispatch()
-  const [product, setProduct] = useState([])
+  const dispatch = useDispatch();
+  const [product, setProduct] = useState([]);
   const windowHeight = Dimensions.get('window').height;
 
-  const onAddToCart = (item) => () => {
-    dispatch({ type: 'ADD_CART', data: { ...item, quantity: 1 } })
-  }
+  const onAddToCart = item => () => {
+    dispatch({ type: 'ADD_CART', data: { ...item, quantity: 1 } });
+  };
 
   useEffect(() => {
     const callGetMenu = async () => {
       try {
         const response = await getMenu();
         console.log('rs', response.data.data); // data tu api tra ve
-        setProduct(response.data.data)
-
+        setProduct(response.data.data);
       } catch (error) {
         console.error(error);
       }
-    }
+    };
 
-    callGetMenu()
-  }, [])
+    callGetMenu();
+  }, []);
 
   const renderItem = ({ item }) => (
     <View>
       <SwipeRow rightOpenValue={-100}>
         <View style={styles.hideBox1}>
-          <TouchableOpacity style={styles.hideBox2} onPress={onAddToCart(item)}>
+          <TouchableOpacity style={styles.hideBox2}>
             <EvilIcons name="heart" size={25} color="#ffff" />
-            <Text style={{ fontSize: 12, color: '#fff', marginTop: 10 }}>Yêu Thích</Text>
+            <Text style={{ fontSize: 12, color: '#fff', marginTop: 10 }}>
+              Yêu Thích
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.item}>
           <View style={styles.boxContent}>
             <View style={styles.boxText}>
-              <Text style={styles.boxText1} onPress={onAddToCart}>{item.product_name}</Text>
-              <Text ellipsizeMode='tail' numberOfLines={2} style={styles.boxText2}>{item.description}</Text>
-              <Text style={styles.boxText3}>{item.price}đ</Text>
+              <Text style={styles.boxText1}>
+                {item.product_name}
+              </Text>
+              <Text
+                ellipsizeMode="tail"
+                numberOfLines={2}
+                style={styles.boxText2}>
+                {item.description}
+              </Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={styles.boxText3}>{item.price}đ</Text>
+                <TouchableOpacity onPress={onAddToCart(item)} style={{ paddingRight: 10 }}>
+                  <FontAwesome name="cart-plus" size={28} color="black" />
+                </TouchableOpacity>
+              </View>
             </View>
             <View style={styles.boxImage}>
               <Image style={styles.image} source={{ uri: item.image }} />
@@ -60,7 +81,10 @@ export default function OrderScreen() {
       <View style={styles.header}>
         <View style={styles.topHeader}>
           <View style={styles.headerImage1}>
-            <Image style={styles.headerImage2} source={require('../Images/delivery.png')} />
+            <Image
+              style={styles.headerImage2}
+              source={require('../Images/delivery.png')}
+            />
           </View>
           <View style={{ marginLeft: 15, justifyContent: 'center' }}>
             <View style={{ flexDirection: 'row' }}>
@@ -68,7 +92,9 @@ export default function OrderScreen() {
               <FontAwesome name="angle-down" size={15} />
             </View>
             <View>
-              <Text style={{ color: '#424242' }}>Các sản phẩm sẽ được giao đến địa chỉ của bạn</Text>
+              <Text style={{ color: '#424242' }}>
+                Các sản phẩm sẽ được giao đến địa chỉ của bạn
+              </Text>
             </View>
           </View>
         </View>
@@ -76,10 +102,14 @@ export default function OrderScreen() {
           <View style={styles.bottomHeader}>
             <View style={styles.headerBox1}>
               <Text>Cà Phê Gói - Cà Phê Uống Liền</Text>
-              <FontAwesome name="angle-down" size={15} color='#9e9e9e' />
+              <FontAwesome name="angle-down" size={15} color="#9e9e9e" />
             </View>
-            <View style={styles.headerBox2}><EvilIcons name="search" size={18} /></View>
-            <View style={styles.headerBox3}><EvilIcons name="heart" size={18} /></View>
+            <View style={styles.headerBox2}>
+              <EvilIcons name="search" size={18} />
+            </View>
+            <View style={styles.headerBox3}>
+              <EvilIcons name="heart" size={18} />
+            </View>
           </View>
         </View>
       </View>
@@ -93,7 +123,7 @@ export default function OrderScreen() {
         />
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -134,6 +164,7 @@ const styles = StyleSheet.create({
   },
   boxText3: {
     fontSize: 15,
+    flex: 1
   },
   headerImage1: {
     justifyContent: 'center',

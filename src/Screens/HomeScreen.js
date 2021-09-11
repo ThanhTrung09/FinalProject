@@ -1,202 +1,223 @@
-import React, { useState } from 'react'
-import { View, Text, SafeAreaView, FlatList, StyleSheet, Image, Dimensions } from 'react-native'
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import Swiper from 'react-native-swiper'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Swiper from 'react-native-swiper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const DATA1 = [
   {
-    id: "1",
-    title: "Ưu đãi đặc biệt",
-    image: "https://file.hstatic.net/1000075078/article/banner_web__1__44ad5bb4e39443a58119cdebc98ae31b_master.jpg",
-    date: "02/09"
+    id: '1',
+    title: 'Ưu đãi đặc biệt',
+    image:
+      'https://file.hstatic.net/1000075078/article/banner_web__1__44ad5bb4e39443a58119cdebc98ae31b_master.jpg',
+    date: '02/09',
   },
   {
-    id: "2",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/banner_web__1__44ad5bb4e39443a58119cdebc98ae31b_master.jpg",
-    date: "23/08"
+    id: '2',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/banner_web__1__44ad5bb4e39443a58119cdebc98ae31b_master.jpg',
+    date: '23/08',
   },
   {
-    id: "3",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/file/236903713_3043429605931045_6642348340373543205_n_c7db024e43f94eb2bdc10c5e17f4cbbd_grande.jpeg",
-    date: "23/08"
+    id: '3',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/file/236903713_3043429605931045_6642348340373543205_n_c7db024e43f94eb2bdc10c5e17f4cbbd_grande.jpeg',
+    date: '23/08',
   },
   {
-    id: "4",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/file/236903713_3043429605931045_6642348340373543205_n_c7db024e43f94eb2bdc10c5e17f4cbbd_grande.jpeg",
-    date: "23/08"
+    id: '4',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/file/236903713_3043429605931045_6642348340373543205_n_c7db024e43f94eb2bdc10c5e17f4cbbd_grande.jpeg',
+    date: '23/08',
   },
   {
-    id: "5",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/file/236903713_3043429605931045_6642348340373543205_n_c7db024e43f94eb2bdc10c5e17f4cbbd_grande.jpeg",
-    date: "23/08"
+    id: '5',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/file/236903713_3043429605931045_6642348340373543205_n_c7db024e43f94eb2bdc10c5e17f4cbbd_grande.jpeg',
+    date: '23/08',
   },
   {
-    id: "6",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/banner_web__1__44ad5bb4e39443a58119cdebc98ae31b_master.jpg",
-    date: "23/08"
+    id: '6',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/banner_web__1__44ad5bb4e39443a58119cdebc98ae31b_master.jpg',
+    date: '23/08',
   },
   {
-    id: "7",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/file/blog__1__b18b5c42d3f04835a52152c368c63501_grande.jpg",
-    date: "23/08"
+    id: '7',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/file/blog__1__b18b5c42d3f04835a52152c368c63501_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "8",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/file/blog__1__b18b5c42d3f04835a52152c368c63501_grande.jpg",
-    date: "23/08"
+    id: '8',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/file/blog__1__b18b5c42d3f04835a52152c368c63501_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "9",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/file/blog__1__b18b5c42d3f04835a52152c368c63501_grande.jpg",
-    date: "23/08"
+    id: '9',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/file/blog__1__b18b5c42d3f04835a52152c368c63501_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "10",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/banner_web__1__44ad5bb4e39443a58119cdebc98ae31b_master.jpg",
-    date: "23/08"
+    id: '10',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/banner_web__1__44ad5bb4e39443a58119cdebc98ae31b_master.jpg',
+    date: '23/08',
   },
 ];
-
 
 const DATA2 = [
   {
-    id: "1",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg",
-    date: "23/08"
+    id: '1',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "2",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg",
-    date: "23/08"
+    id: '2',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "3",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg",
-    date: "23/08"
+    id: '3',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "4",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8586_grande.jpg",
-    date: "23/08"
+    id: '4',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8586_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "5",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8586_grande.jpg",
-    date: "23/08"
+    id: '5',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8586_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "6",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8586_grande.jpg",
-    date: "23/08"
+    id: '6',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8586_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "7",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8586_grande.jpg",
-    date: "23/08"
+    id: '7',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8586_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "8",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8586_grande.jpg",
-    date: "23/08"
+    id: '8',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8586_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "9",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg",
-    date: "23/08"
+    id: '9',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "10",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg",
-    date: "23/08"
+    id: '10',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg',
+    date: '23/08',
   },
 ];
-
-
 
 const DATA3 = [
   {
-    id: "1",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8276_grande.jpg",
-    date: "23/08"
+    id: '1',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8276_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "2",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8538_grande.jpg",
-    date: "23/08"
+    id: '2',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8538_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "3",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8276_grande.jpg",
-    date: "23/08"
+    id: '3',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8276_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "4",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8538_grande.jpg",
-    date: "23/08"
+    id: '4',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8538_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "5",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8586_grande.jpg",
-    date: "23/08"
+    id: '5',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8586_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "6",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8586_grande.jpg",
-    date: "23/08"
+    id: '6',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8586_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "7",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8586_grande.jpg",
-    date: "23/08"
+    id: '7',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8586_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "8",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/img_8586_grande.jpg",
-    date: "23/08"
+    id: '8',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image: 'https://file.hstatic.net/1000075078/article/img_8586_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "9",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg",
-    date: "23/08"
+    id: '9',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg',
+    date: '23/08',
   },
   {
-    id: "10",
-    title: "Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)",
-    image: "https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg",
-    date: "23/08"
+    id: '10',
+    title: 'Mừng Tuổi Mới, Nhà Mời 50%(23/08 - 29/08)',
+    image:
+      'https://file.hstatic.net/1000075078/article/bannerhome-freeship_dec45eaf64c84bd693884264423d2064_grande.jpg',
+    date: '23/08',
   },
 ];
-
 
 export default function HomeScreen() {
   const [dataList, setdataList] = useState(DATA1);
@@ -207,17 +228,32 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <View style={styles.headerTitle}>
           <View style={styles.textSun}>
-            <Image style={styles.imageSun} source={require('../Images/sun.png')} />
+            <Image
+              style={styles.imageSun}
+              source={require('../Images/sun.png')}
+            />
             <Text style={styles.headerText}>Chào buổi chiều, thành trung</Text>
           </View>
-          <View style={{ justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row' }}>
-            <View style={styles.headerIcon1}><MaterialCommunityIcons name="ticket-confirmation-outline" size={15} /></View>
-            <View style={styles.headerIcon2}><Fontisto name="bell" size={15} /></View>
+          <View
+            style={{
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}>
+            <View style={styles.headerIcon1}>
+              <MaterialCommunityIcons
+                name="ticket-confirmation-outline"
+                size={15}
+              />
+            </View>
+            <View style={styles.headerIcon2}>
+              <Fontisto name="bell" size={15} />
+            </View>
           </View>
         </View>
       </View>
-    )
-  }
+    );
+  };
 
   const Body = () => {
     return (
@@ -226,11 +262,17 @@ export default function HomeScreen() {
           <View style={styles.boxDelivery}>
             <View style={styles.delivery}>
               <View style={styles.deliveryLeft}>
-                <Image style={styles.image1} source={require('../Images/delivery.png')} />
+                <Image
+                  style={styles.image1}
+                  source={require('../Images/delivery.png')}
+                />
                 <Text>Giao hàng</Text>
               </View>
               <View style={styles.deliveryRight}>
-                <Image style={styles.image2} source={require('../Images/takeaway.png')} />
+                <Image
+                  style={styles.image2}
+                  source={require('../Images/takeaway.png')}
+                />
                 <Text>Mang về</Text>
               </View>
             </View>
@@ -238,19 +280,44 @@ export default function HomeScreen() {
           <View style={{ width: '100%', height: 200 }}>
             <Swiper style={styles.wrapper} autoplay={true} autoplayTimeout={3}>
               <View style={styles.slide}>
-                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/225547912_3043429712597701_1363688999489744489_n_ecf71de9ac524b29a1596646dc4aaf82_grande.jpeg" }} />
+                <Image
+                  style={styles.slideImage}
+                  source={{
+                    uri: 'https://file.hstatic.net/1000075078/file/225547912_3043429712597701_1363688999489744489_n_ecf71de9ac524b29a1596646dc4aaf82_grande.jpeg',
+                  }}
+                />
               </View>
               <View style={styles.slide}>
-                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/236903713_3043429512597721_3240934949613314118_n_34e21bb2e40242eb877c5f10aa66bd2c_grande.jpeg" }} />
+                <Image
+                  style={styles.slideImage}
+                  source={{
+                    uri: 'https://file.hstatic.net/1000075078/file/236903713_3043429512597721_3240934949613314118_n_34e21bb2e40242eb877c5f10aa66bd2c_grande.jpeg',
+                  }}
+                />
               </View>
               <View style={styles.slide}>
-                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/article/blog_079b84707b0e4e4fa291d617d4184546_master.jpg" }} />
+                <Image
+                  style={styles.slideImage}
+                  source={{
+                    uri: 'https://file.hstatic.net/1000075078/article/blog_079b84707b0e4e4fa291d617d4184546_master.jpg',
+                  }}
+                />
               </View>
               <View style={styles.slide}>
-                <Image style={styles.slideImage} source={{ uri: "https://file.hstatic.net/1000075078/file/notif-giahan-goiwfh_14855ba08c8b42c9bdb0c80432734dbc_grande.jpg" }} />
+                <Image
+                  style={styles.slideImage}
+                  source={{
+                    uri: 'https://file.hstatic.net/1000075078/file/notif-giahan-goiwfh_14855ba08c8b42c9bdb0c80432734dbc_grande.jpg',
+                  }}
+                />
               </View>
               <View style={styles.slide}>
-                <Image style={styles.slideImage} source={{ uri: "https://image.bnews.vn/MediaUpload/Org/2021/01/23/the-coffee-house2.jpg" }} />
+                <Image
+                  style={styles.slideImage}
+                  source={{
+                    uri: 'https://image.bnews.vn/MediaUpload/Org/2021/01/23/the-coffee-house2.jpg',
+                  }}
+                />
               </View>
             </Swiper>
           </View>
@@ -258,31 +325,46 @@ export default function HomeScreen() {
         <View>
           <Text style={styles.MainContent}>Khám phá thêm</Text>
           <View style={styles.MainContentList}>
-            <View style={styles.MainContentList1} >
-              <Text onPress={() => { setdataList(DATA1) }} style={styles.MainContentText}>Ưu đãi đặc biệt</Text>
+            <View style={styles.MainContentList1}>
+              <Text
+                onPress={() => {
+                  setdataList(DATA1);
+                }}
+                style={styles.MainContentText}>
+                Ưu đãi đặc biệt
+              </Text>
             </View>
-            <View style={styles.MainContentList2} >
-              <Text style={styles.MainContentText} onPress={() => {
-                setdataList(DATA2);
-              }}>Cập nhập từ nhà</Text>
+            <View style={styles.MainContentList2}>
+              <Text
+                style={styles.MainContentText}
+                onPress={() => {
+                  setdataList(DATA2);
+                }}>
+                Cập nhập từ nhà
+              </Text>
             </View>
-            <View style={styles.MainContentList3} >
-              <Text onPress={() => {
-                setdataList(DATA3);
-              }} style={styles.MainContentText}>#CoffeeLover</Text>
+            <View style={styles.MainContentList3}>
+              <Text
+                onPress={() => {
+                  setdataList(DATA3);
+                }}
+                style={styles.MainContentText}>
+                #CoffeeLover
+              </Text>
             </View>
           </View>
         </View>
       </View>
-    )
-  }
+    );
+  };
 
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>
       <Image style={styles.listItemImage} source={{ uri: item.image }} />
       <View style={styles.listItemText}>
         <Text style={styles.listItemTittle}>{item.title}</Text>
-        <View style={{ flexDirection: "row", alignItems: "center", width: "40%" }}>
+        <View
+          style={{ flexDirection: 'row', alignItems: 'center', width: '40%' }}>
           <Icon name="calendar" size={13} color="black" />
           <Text style={styles.listItemDate}>{item.date}</Text>
         </View>
@@ -304,7 +386,7 @@ export default function HomeScreen() {
         />
       </View>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -330,7 +412,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -347,7 +429,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -371,7 +453,6 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     borderRadius: 10,
-
   },
   slide: {
     borderRadius: 20,
@@ -422,19 +503,19 @@ const styles = StyleSheet.create({
     borderColor: '#e0e0e0',
   },
   listItemImage: {
-    width: "100%",
+    width: '100%',
     height: 170,
-    borderRadius: 10
+    borderRadius: 10,
   },
   listItem: {
-    width: "46%",
+    width: '46%',
     marginLeft: 10,
     marginTop: 15,
   },
   MainContent: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 15
+    marginBottom: 15,
   },
   MainContentList: {
     flexDirection: 'row',
@@ -447,7 +528,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   listItemText: {
-    marginVertical: 10
+    marginVertical: 10,
   },
   listItemTittle: {
     fontWeight: 'bold',
@@ -456,6 +537,6 @@ const styles = StyleSheet.create({
   listItemDate: {
     fontSize: 13,
     marginLeft: 10,
-    color: '#4e4e4e'
+    color: '#4e4e4e',
   },
-})
+});

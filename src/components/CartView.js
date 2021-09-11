@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import {
-  Platform,
   StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
+  View
 } from 'react-native'
-// import { Fonts, Metrics, Colors } from '../themes'
 
 
 export default class App extends Component {
@@ -22,14 +18,11 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    // margin: Metrics.smallMargin,
-    // borderColor: Colors.border,
     borderRadius: 4,
     borderBottomWidth: 0.5,
     padding: 5,
     backgroundColor: 'white',
     borderColor: 'transparent',
-    // marginBottom: 5
     borderWidth: 1
   }
 })
