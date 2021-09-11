@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native'
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image, Dimensions } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import CartView from '../components/CartView'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,8 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function CartScreen() {
   const dispatch = useDispatch();
+  const windowHeight = Dimensions.get('window').height;
   const productList = useSelector((store) => store.cartReducer.products);
-
+  const totalMoney = productList.reduce((acc, ele) => acc + (ele.price * ele.quantity), 0)
+  const totalItem = productList.reduce((acc, ele) => acc + ele.quantity, 0)
 
   console.log('productList', productList)
 
@@ -38,7 +40,7 @@ export default function CartScreen() {
           <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, width: '100%' }}>
             <View style={{ flex: 1, }}>
               <View style={{ flexDirection: 'row' }}>
-                <Text style={{ fontSize: 19, fontWeight: 'bold', marginRight: 10 }}>{item.price}đ</Text>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', marginRight: 10 }}>{item.price} đ</Text>
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <View style={{ flexDirection: 'row', marginRight: 10 }}>
@@ -75,18 +77,36 @@ export default function CartScreen() {
         data={productList}
         renderItem={renderItem}
         keyExtractor={(item) => item._id?.toString()}
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={
+          <View style={{ height: windowHeight }}>
+            {
+              productList?.length ?
+                <TouchableOpacity style={{ marginTop: 10, marginLeft: 10, marginBottom: 50 }} onPress={onRemoveAll}>
+                  <Text style={{ color: 'black', fontSize: 15 }}>
+                    Remove all
+                  </Text>
+                </TouchableOpacity> : null
+            }
+          </View>
+        }
       />
-      {productList?.length ?
-        <TouchableOpacity style={{ marginTop: 10 }} onPress={onRemoveAll}>
-          <Text>
-            Remove all
-          </Text>
-        </TouchableOpacity> :
-        <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-          <Text style={{ fontSize: 18 }}>Nothing here!</Text>
-        </View>
-      }
+      {productList?.length ? <View style={styles.totalMoney}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Total item: </Text>
+          <Text>{totalItem}</Text>
 
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Total money: </Text>
+          <Text>{totalMoney} đ</Text>
+        </View>
+      </View> : null}
+      {!productList?.length && (
+        <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+          <Text>Nothing here!</Text>
+        </View>)
+      }
     </View>
   )
 }
@@ -155,5 +175,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#4e4e4e',
+  },
+  totalMoney: {
+    height: 100,
+    width: '100%',
+    paddingHorizontal: 15,
+    position: 'absolute',
+    bottom: 20,
+    backgroundColor: 'white'
   },
 });
