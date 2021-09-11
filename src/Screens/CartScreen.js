@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import CartView from '../components/CartView'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CartScreen() {
@@ -21,7 +22,10 @@ export default function CartScreen() {
     } else {
       dispatch({ type: 'CHANGE_QUANTITY', data: item, changeQuantityType: type })
     }
+  }
 
+  const onOrderItem = () => {
+    alert('Đặt hàng thành công!')
   }
 
   const onRemoveItem = (item) => () => {
@@ -45,11 +49,11 @@ export default function CartScreen() {
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <View style={{ flexDirection: 'row', marginRight: 10 }}>
                   <TouchableOpacity onPress={onChangeQuantity('reduce', item)} style={styles.btn}>
-                    <Ionicons name="md-remove" size={25} color={'#4e4e4e'} />
+                    <AntDesign name="caretleft" size={20} color={'#4e4e4e'} />
                   </TouchableOpacity>
                   <Text style={{ fontSize: 20, marginHorizontal: 20 }}>{item.quantity}</Text>
                   <TouchableOpacity onPress={onChangeQuantity('increase', item)} style={styles.btn}>
-                    <Ionicons name="add-outline" size={25} color={'#4e4e4e'} />
+                    <AntDesign name="caretright" size={20} color={'#4e4e4e'} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -95,16 +99,20 @@ export default function CartScreen() {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Total item: </Text>
           <Text>{totalItem}</Text>
-
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 4 }}>
           <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Total money: </Text>
           <Text>{totalMoney} đ</Text>
         </View>
+        <View style={{ alignItems: 'flex-end' }}>
+          <TouchableOpacity style={styles.btnOrder} onPress={onOrderItem}>
+            <Text style={{ color: 'white', fontSize: 15 }}>Đặt hàng</Text>
+          </TouchableOpacity>
+        </View>
       </View> : null}
       {!productList?.length && (
-        <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-          <Text>Nothing here!</Text>
+        <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', position: 'absolute' }}>
+          <Text style={{ fontSize: 15 }}>Nothing here!</Text>
         </View>)
       }
     </View>
@@ -177,11 +185,20 @@ const styles = StyleSheet.create({
     borderColor: '#4e4e4e',
   },
   totalMoney: {
-    height: 100,
+    height: 130,
     width: '100%',
     paddingHorizontal: 15,
     position: 'absolute',
     bottom: 20,
     backgroundColor: 'white'
+  },
+  btnOrder: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#909090',
+    height: 30,
+    width: 100,
+    borderRadius: 10,
+
   },
 });

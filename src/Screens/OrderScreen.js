@@ -12,6 +12,7 @@ import { getMenu } from '../services/Api';
 import { useSelector, useDispatch } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 import { SwipeRow } from 'react-native-swipe-list-view';
 
 export default function OrderScreen() {
@@ -62,8 +63,8 @@ export default function OrderScreen() {
               </Text>
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={styles.boxText3}>{item.price}đ</Text>
-                <TouchableOpacity onPress={onAddToCart(item)} style={{ paddingRight: 10 }}>
-                  <FontAwesome name="cart-plus" size={28} color="black" />
+                <TouchableOpacity onPress={onAddToCart(item)} style={styles.btnCart}>
+                  <Feather name="shopping-bag" size={25} color="#424242" />
                 </TouchableOpacity>
               </View>
             </View>
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
   },
   boxText2: {
     fontSize: 14,
-    marginVertical: 15,
+    marginVertical: 10,
     color: '#424242',
   },
   boxText3: {
@@ -233,5 +234,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 80,
     width: 80,
+  },
+  btnCart: {
+    height: 40,
+    width: 40,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 40 / 2,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 });
