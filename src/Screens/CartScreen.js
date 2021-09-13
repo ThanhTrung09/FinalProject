@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image, Dimensions } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import CartView from '../components/CartView'
+import OrderShip from './OrderShip'
+import OrderTakeAway from './OrderTakeAway'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Modal from "react-native-modal";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CartScreen() {
   const dispatch = useDispatch();
+  const [isVisible, setisVisible] = useState(false);
+
   const windowHeight = Dimensions.get('window').height;
   const productList = useSelector((store) => store.cartReducer.products);
   const totalMoney = productList.reduce((acc, ele) => acc + (ele.price * ele.quantity), 0)
@@ -24,9 +29,7 @@ export default function CartScreen() {
     }
   }
 
-  const onOrderItem = () => {
-    alert('Đặt hàng thành công!')
-  }
+  const onOrderItem = () => { setisVisible(true) }
 
   const onRemoveItem = (item) => () => {
     dispatch({ type: 'REMOVE_ITEM', data: item })
@@ -115,6 +118,23 @@ export default function CartScreen() {
           <Text style={{ fontSize: 15 }}>Nothing here!</Text>
         </View>)
       }
+      <Modal
+        testID={'modal'}
+        isVisible={isVisible}
+        onSwipeComplete={() => setisVisible(false)}
+        swipeDirection={['up', 'left', 'right', 'down']}
+        style={{ justifyContent: 'flex-end', margin: 0 }}>
+        <View style={styles.content}>
+          <View style={styles.mainContent}>
+            <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Chọn phương thức đặt hàng</Text>
+          </View>
+          <OrderShip />
+          <OrderTakeAway />
+          <TouchableOpacity style={styles.closeBtn} onPress={() => setisVisible(false)} >
+            <Ionicons name="close" size={25} color="black" />
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   )
 }
@@ -195,10 +215,29 @@ const styles = StyleSheet.create({
   btnOrder: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#909090',
+    backgroundColor: '#ff9e40',
     height: 30,
     width: 100,
     borderRadius: 10,
-
   },
+  closeBtn: {
+    position: 'absolute',
+    right: 0,
+    top: 10,
+    height: 40,
+    width: 40,
+  },
+  content: {
+    height: 200,
+    backgroundColor: 'white',
+    borderTopEndRadius: 15,
+    borderTopStartRadius: 15,
+  },
+  mainContent: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0'
+  }
 });
