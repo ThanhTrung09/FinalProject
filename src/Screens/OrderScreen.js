@@ -12,24 +12,38 @@ import { getMenu } from '../services/Api';
 import { useSelector, useDispatch } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import { SwipeRow } from 'react-native-swipe-list-view';
+import Modal from "react-native-modal";
+import DetailScreen from './DetailScreen';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Loading from '../components/Loading';
 
 export default function OrderScreen() {
   const dispatch = useDispatch();
   const [product, setProduct] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const windowHeight = Dimensions.get('window').height;
+  const [isVisibleDetail, setIsVisibleDetail] = useState(false)
 
   const onAddToCart = item => () => {
     dispatch({ type: 'ADD_CART', data: { ...item, quantity: 1 } });
   };
 
+  const onAddToDetail = (item) => () => {
+    dispatch({ type: 'ADD_DETAIL', data: { ...item, quantity: 1 } })
+    setIsVisibleDetail(true)
+  };
+
   useEffect(() => {
     const callGetMenu = async () => {
       try {
+        setIsLoading(true)
         const response = await getMenu();
         console.log('rs', response.data.data); // data tu api tra ve
         setProduct(response.data.data);
+        setIsLoading(false)
       } catch (error) {
         console.error(error);
       }
@@ -38,17 +52,9 @@ export default function OrderScreen() {
     callGetMenu();
   }, []);
 
-  const renderItem = ({ item }) => (
-    <View>
-      <SwipeRow rightOpenValue={-100}>
-        <View style={styles.hideBox1}>
-          <TouchableOpacity style={styles.hideBox2}>
-            <EvilIcons name="heart" size={25} color="#ffff" />
-            <Text style={{ fontSize: 12, color: '#fff', marginTop: 10 }}>
-              Yêu Thích
-            </Text>
-          </TouchableOpacity>
-        </View>
+  const renderItem = ({ item }) => {
+    return (
+      <TouchableOpacity onPress={onAddToDetail(item)}>
         <View style={styles.item}>
           <View style={styles.boxContent}>
             <View style={styles.boxText}>
@@ -73,12 +79,13 @@ export default function OrderScreen() {
             </View>
           </View>
         </View>
-      </SwipeRow>
-    </View>
-  );
+      </TouchableOpacity>
+    )
+  };
 
   return (
-    <View>
+    <SafeAreaView style={{ flex: 1 }}>
+      {isLoading && <Loading />}
       <View style={styles.header}>
         <View style={styles.topHeader}>
           <View style={styles.headerImage1}>
@@ -123,7 +130,10 @@ export default function OrderScreen() {
           showsVerticalScrollIndicator={false}
         />
       </View>
-    </View>
+      <DetailScreen showDetail={isVisibleDetail}
+        close={(val) => setIsVisibleDetail(val)}
+      />
+    </SafeAreaView>
   );
 }
 
@@ -242,5 +252,13 @@ const styles = StyleSheet.create({
     borderRadius: 40 / 2,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  content: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
   },
 });
