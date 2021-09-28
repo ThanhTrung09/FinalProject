@@ -11,7 +11,7 @@ export default function OrderTakeAway() {
         <View style={{ width: 55 }}>
           <Image
             style={styles.image}
-            source={require('../Images/takeaway.png')}
+            source={require('../../Images/takeaway.png')}
           />
         </View>
         <View style={{ flex: 1 }}>

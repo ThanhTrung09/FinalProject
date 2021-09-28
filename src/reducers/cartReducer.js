@@ -16,7 +16,6 @@ export default function cartReducer(state = initialState, action) {
       };
 
     case 'CHANGE_QUANTITY':
-      // action => { type: 'CHANGE_QUANTITY', data: item, changeQuantityType: type }
       const isReduce = action.changeQuantityType === 'reduce'
       const productChangeQuantity = state.products?.map(e => e._id === action.data._id ? ({ ...e, quantity: isReduce ? (e.quantity - 1) : (e.quantity + 1) }) : e)
       return {

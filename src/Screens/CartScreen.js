@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image, Dimensions } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import CartView from '../components/CartView'
-import OrderShip from './OrderShip'
-import OrderTakeAway from './OrderTakeAway'
+import CartView from '../components/CartScreens/CartView'
+import OrderShip from '../components/CartScreens/OrderShip'
+import OrderTakeAway from '../components/CartScreens/OrderTakeAway'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
