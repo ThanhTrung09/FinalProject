@@ -14,7 +14,7 @@ export default function OrderShip() {
         <View style={{ width: 55 }} >
           <Image
             style={styles.image}
-            source={require('../Images/delivery.png')}
+            source={require('../../Images/delivery.png')}
           />
         </View>
         <View style={{ flex: 1 }}>

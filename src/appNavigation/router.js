@@ -17,7 +17,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName='Trang chủ'
+        initialRouteName='Home'
         screenOptions={{
           tabBarActiveTintColor: 'orange',
           tabBarInactiveTintColor: 'grey',
@@ -26,7 +26,7 @@ export default function App() {
           headerShown: false,
         }}>
         <Tab.Screen
-          name="Trang chủ"
+          name="Home"
           component={HomeScreen}
           options={{
             tabBarLabel: 'Trang chủ',
@@ -36,7 +36,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Đặt hàng"
+          name="Order"
           component={OrderScreen}
           options={{
             tabBarLabel: 'Đặt hàng',
@@ -46,7 +46,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Cửa hàng"
+          name="Shop"
           component={ShopScreen}
           options={{
             tabBarLabel: 'Cửa hàng',
@@ -56,7 +56,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Giỏ hàng"
+          name="Cart"
           component={CartScreen}
           options={{
             tabBarLabel: 'Giỏ hàng',
@@ -70,7 +70,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Khác"
+          name="Other"
           component={OtherScreen}
           options={{
             tabBarLabel: 'Khác',
