@@ -12,6 +12,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
 import { Login } from '../services/Api';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const { height, width } = Dimensions.get('window')
@@ -19,8 +20,9 @@ const { height, width } = Dimensions.get('window')
 
 export default function LoginScreen() {
   const [isVisible, setisVisible] = useState(false);
-  const [phone, setPhone] = useState()
-  const [code, setCode] = useState()
+  const [phone, setPhone] = useState();
+  const [code, setCode] = useState();
+  const dispatch = useDispatch();
 
   const onChangePhone = (val) => setPhone(val)
   const onChangeCode = (val) => setCode(val)
@@ -50,6 +52,7 @@ export default function LoginScreen() {
   const onVerifyCode = async () => {
     try {
       const response = await Login({ phone: phone, otp: code });
+      dispatch({ type: 'SET_TOKEN', data: response.data })
       console.log('rs', response.data); // data tu api tra ve
       setisVisible(false)
     } catch (error) {
@@ -138,7 +141,6 @@ export default function LoginScreen() {
             </View>
           </View>
         </View>
-        {/* <DefaultModalContent onPress={this.close} /> */}
       </Modal>
     </View >
   );

@@ -1,13 +1,17 @@
 
 const initialState = {
-  token: ''
+  userInfo: null,
+  token: null
 }
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
-    case "SEND_TO_PARRENT":
+    case "SET_TOKEN":
+      console.tron.log(action.data)
       return {
-        items: [...state.items, action.data],
+        ...state,
+        token: action.data.data?.token,
+        userInfo: action.data.data?.userInfo?.[0]
       };
     default:
       return state;

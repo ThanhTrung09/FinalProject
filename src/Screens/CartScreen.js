@@ -5,6 +5,7 @@ import CartView from '../components/CartScreens/CartView'
 import OrderShip from '../components/CartScreens/OrderShip'
 import OrderTakeAway from '../components/CartScreens/OrderTakeAway'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Modal from "react-native-modal";
@@ -52,11 +53,11 @@ export default function CartScreen() {
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <View style={{ flexDirection: 'row', marginRight: 10 }}>
                   <TouchableOpacity onPress={onChangeQuantity('reduce', item)} style={styles.btn}>
-                    <AntDesign name="caretleft" size={20} color={'#4e4e4e'} />
+                    <Material name='minus' size={18} color={'#4e4e4e'} />
                   </TouchableOpacity>
-                  <Text style={{ fontSize: 20, marginHorizontal: 20 }}>{item.quantity}</Text>
+                  <Text style={{ fontSize: 24, marginHorizontal: 20 }}>{item.quantity}</Text>
                   <TouchableOpacity onPress={onChangeQuantity('increase', item)} style={styles.btn}>
-                    <AntDesign name="caretright" size={20} color={'#4e4e4e'} />
+                    <Material name="plus" size={20} color={'#4e4e4e'} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -196,13 +197,12 @@ const styles = StyleSheet.create({
     height: 65,
   },
   btn: {
-    height: 30,
-    width: 30,
-    borderRadius: 30 / 2,
-    borderWidth: 1,
+    height: 40,
+    width: 40,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#4e4e4e',
+    backgroundColor: '#e0e0e0',
   },
   totalMoney: {
     height: 130,

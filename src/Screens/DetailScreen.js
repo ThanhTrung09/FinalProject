@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   scrollableModal: {
     backgroundColor: 'white',
-    height: h - 80,
+    height: h -110,
     borderRadius: 15,
     borderColor: 'rgba(0, 0, 0, 0.1)',
     width: w
